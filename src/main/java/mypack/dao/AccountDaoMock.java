@@ -4,6 +4,7 @@ import mypack.domain.Account;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class AccountDaoMock implements AccountDao {
@@ -30,11 +31,9 @@ public class AccountDaoMock implements AccountDao {
     }
 
     public List<Account> getByOwner(Long ownerId) {
-        List<Account> accounts = new ArrayList<>();
-        accounts.stream()
+        return accounts.stream()
                 .filter(account -> Objects.equals(account.getOwnerId(), ownerId))
-                .forEach((account) -> accounts.add(account));
-        return accounts;
+                .collect(Collectors.toList());
     }
 
     public void save(List<Account> accounts) {
